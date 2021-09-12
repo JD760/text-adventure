@@ -4,4 +4,5 @@ from player import *
 #from enemies import *
 from commands import *
 
-processCommand("stats")
+progressBar(78, 100, 10, "Health")
+classSelectMenu()
