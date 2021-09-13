@@ -4,5 +4,13 @@ from player import *
 #from enemies import *
 from commands import *
 
-progressBar(78, 100, 10, "Health")
-classSelectMenu()
+
+# highlights the first letter of a choice green
+def selectOption(output: str):
+
+
+def gameStart():
+    clear()
+    selectOption("Start")
+    selectOption("Quit")
+    print("Select an option: ")

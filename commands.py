@@ -6,6 +6,14 @@ from os import system, name
 from player import *
 from enemy import *
 
+
+class Colours():
+    Green: str = "\033[1;32;40m"
+    Red: str = "\033[1;31;40m"
+    White: str = "\033[1;37;40m"
+
+
+
 # clear the console 
 def clear():
     if name == "nt":
@@ -25,7 +33,7 @@ def classSelectMenu() -> Player:
 
 # health/xp meter creation
 def progressBar(quantity: int, maxQuantity: int, barUnits: int, quantityName: str = ""):
-    filledUnits: int = round(quantity / round(maxQuantity / barUnits))
+    filledUnits: int = math.floor(quantity / round(maxQuantity / barUnits, 1))
     bar: str = quantityName + ":["
     for i in range(barUnits):
         if i < filledUnits:
@@ -51,8 +59,8 @@ def openHelp() -> None:
 
 
 def openStats(player):
-    progressBar(player.health, player.maxHealth, "Health")
-    progressBar(player.experience, player.maxXP, "Experience")
+    progressBar(player.health, player.maxHealth, 10, "Health")
+    progressBar(player.experience, player.maxXP, 10, "Experience")
     print("Player Damage: ", player.damage)
     print("Player Ability: ", player.ability)
 

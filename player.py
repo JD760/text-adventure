@@ -24,6 +24,7 @@ class Player():
         self.experience = 0
         self.maxXP = 5
         self.balance = 0
+        self.fireballTurns = 0 # num turns since fireball used
     
     
     # method to handle adding experience to the player and levelling
@@ -47,3 +48,27 @@ class Player():
             self.maxXP = self.level * 5
 
         return self.level - initialLevel
+
+
+    # method to handle an enemy attack 
+    # damage -> the damage of the attacking enemy
+    # enemyAbility -> the type of incoming attack
+    # return: amount of health lost
+    def takeDamage(self, damage: int, attackType: str = "") -> int:
+        damageModifier: int = 1 # this is changed by abilities 
+        if player.ability == "dodge":
+            if random.randint(1,10) <= 3:
+                print("You dodged the enemy attack")
+                return 0
+        elif player.ability == "ranged":
+            if attackType != "ranged" and attackType != "":
+                # 1/4 less damage taken if not ranged attack
+                damageModifier = 0.75
+        elif player.ability == "knight":
+            if attackType == "melee":
+                damageModifier = 0.6
+        else:
+            # something has gone wrong 
+            return -1
+        player.health -= math.floor(damage * damageModifier)
+        return math.floor(damage * damageModifier)

@@ -1,0 +1,5 @@
+TODO
+	- shop menu -> using balance to buy items and boosts
+		- potions -> damage++ or health++
+		- ability improvements -> better dodge, fireball etc
+	- enemy fights -> enemy abilities?
