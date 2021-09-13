@@ -1,4 +1,4 @@
-## IO.py - SIL text adventure
+## commands.py - SIL text adventure
 # this file handles user text input for game choices etc
 # and text output such as the help or stats pages
 
@@ -8,8 +8,10 @@ from enemy import *
 
 
 class Colours():
-    Green: str = "\033[1;32;40m"
-    Red: str = "\033[1;31;40m"
+    # colouring lines works differently on windows
+    # compared to linux - not sure why this causes problems
+    Green: str = "\033[1;32;40m"    
+    Red: str = "\033[1;31;40m"    
     White: str = "\033[1;37;40m"
 
 
@@ -20,6 +22,14 @@ def clear():
         system("cls")
     else:
         system("clear")
+
+
+# print a solid bar of dashes into the console
+def printBar():
+    output: str = ""
+    for i in range(50):
+        output += "-"
+    print(output)
 
 
 # menu that gives player the option to select a character class
@@ -46,7 +56,6 @@ def progressBar(quantity: int, maxQuantity: int, barUnits: int, quantityName: st
 
 
 def openHelp() -> None:
-    clear()
     print("Help menu:\n\
     help - print this menu\n\
     stats - show player statistics menu\n\
@@ -55,18 +64,23 @@ def openHelp() -> None:
     restart - start a new game\n\
     attack - attack an enemy\n\
     defend - defend against an enemy attack")
+    printBar()
     return
 
 
 def openStats(player):
     progressBar(player.health, player.maxHealth, 10, "Health")
     progressBar(player.experience, player.maxXP, 10, "Experience")
-    print("Player Damage: ", player.damage)
-    print("Player Ability: ", player.ability)
+    print("Player Damage: ",Colours.Red, player.damage, Colours.White)
+    print("Player Ability: ", Colours.Green, player.ability, Colours.White)
+    printBar()
 
 
 def openShop(player):
-    pass
+    # shop code, purchasing stuffs
+    healthItems = {"healing1": 15, "healing2": 25, "healing3": 40}
+    damageItems = {"strength1": 2, "strength2": 5, "strength3": 8}
+    printBar()
 
 
 # creates a list of sensible commands given a specific context
