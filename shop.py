@@ -11,7 +11,7 @@ class Item():
             displayName: str,
             category: str,
             effect: int,
-            cost: int)
+            cost: int):
         self.name = name
         self.displayName = displayName
         self.category = category
@@ -45,6 +45,7 @@ def displayItem(item: Item):
 
 def openShop(player: Player):
     print("\" Welcome to my Shop \"")
+    printBar()
     # all T1 items always stocked
     # 2/3 T2 items stocked at any time 
     # 1/3 T3 items stocked at any time
@@ -59,9 +60,9 @@ def openShop(player: Player):
     displayItem(Items.strength1)
     displayItem(Items.strength2)
     displayItem(Items.strength3)
-    if player.ability == "assassin":
+    if player.ability == "dodge":
         displayItem(Items.dodge1)
-    elif player.ability == "wizard":
+    elif player.ability == "fireball":
         displayItem(Items.fireball1)
     else:
         displayItem(Items.melee1)

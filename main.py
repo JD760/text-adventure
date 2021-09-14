@@ -4,6 +4,7 @@ from player import *
 #from enemies import *
 from commands import *
 from shop import openShop
+from fight import fightEnemy
 
 # highlights the first letter of a choice green
 def selectOption(inputStr: str, prefixChar: str = ""):
@@ -42,25 +43,35 @@ def gameStart():
     conversion = {"a": "assassin", "w": "wizard", "k": "knight"}
     if choice in ["a", "w", "k"]:
         choice = conversion[choice]
+    playerClass: str = choice
 
+    # choose a game difficulty
+    difficulty: int = 0
+    print("Select a game difficulty")
+    selectOption("Easy - reduced enemy health and increased player damage")
+    selectOption("Normal - standard game difficulty")
+    selectOption("Hard - increased enemy health and player damage")
+    choice = ""
+    choices = ["e", "n", "h", "easy", "normal", "hard"]
+    while choice not in choices:
+        choice = input("-->: ").lower()
+    conversion = {"e" : "easy", "n": "normal", "h": "hard"}
+    if choice in ["e", "n", "h"]:
+        choice = conversion[choice]
+    
+    if choice == "easy":
+        difficulty = 0.75
+    elif choice == "normal":
+        difficulty = 1
+    elif choice == "hard":
+        difficulty = 1.5
+    
+    printBar()
     # create a player instance
-    player = Player(choice)
-    openStats(player)
+    player = Player(playerClass, difficulty)
 
-    openShop()
-
-
-def enemyFight(player: Player, enemy: Enemy):
-    choice: str = ""
-    while player.health > 0:
-        printBar()
-        progressBar(player.health, player.maxHealth, "Player")
-        progressBar(enemy.health, enemy.maxHealth, "Enemy")
-        selectOption("Attack")
-        selectOption("Defend")
-        printBar()
-        choice = input("-->: ")
-        
-
+    # begin the first enemy fight
+    enemy = Enemy(player.gameDifficulty, player.level)
+    fightEnemy(player, enemy)
 
 gameStart()
